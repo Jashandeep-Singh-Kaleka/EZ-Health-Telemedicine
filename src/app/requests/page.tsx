@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
-import { mockAuth, mockRequests, mockProviders } from '@/lib/mock-data';
-import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import { mockAuth, mockRequests } from '@/lib/mock-data';
+import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { 
   Bell, 
@@ -12,7 +12,6 @@ import {
   User, 
   AlertCircle,
   CheckCircle,
-  X,
   Filter
 } from 'lucide-react';
 import { formatDateTime, getUrgencyColor, getAgeFromDate, matchProvidersToRequest } from '@/lib/utils';
@@ -90,7 +89,7 @@ export default function Requests() {
             <Filter className="h-4 w-4 text-gray-400" />
             <select
               value={filter}
-              onChange={(e) => setFilter(e.target.value as any)}
+              onChange={(e) => setFilter(e.target.value as 'all' | 'pending' | 'matched')}
               className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="pending">Pending Requests</option>

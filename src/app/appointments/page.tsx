@@ -11,12 +11,10 @@ import {
   User, 
   Video,
   MessageCircle,
-  Plus,
-  Filter,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { formatDateTime, formatTime, getStatusColor } from '@/lib/utils';
+import { formatDateTime, getStatusColor } from '@/lib/utils';
 
 export default function Appointments() {
   const currentUser = mockAuth.currentUser;

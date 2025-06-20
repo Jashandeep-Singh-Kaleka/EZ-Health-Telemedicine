@@ -10,10 +10,7 @@ import {
   Lock, 
   ShoppingCart,
   CheckCircle,
-  AlertCircle,
-  Calendar,
-  User,
-  DollarSign
+  AlertCircle
 } from 'lucide-react';
 import { formatDateTime } from '@/lib/utils';
 
@@ -165,7 +162,7 @@ export default function Checkout() {
             <Card>
               <CardHeader>
                 <h3 className="text-lg font-semibold text-gray-900">Available Services</h3>
-                <p className="text-sm text-gray-600">Select additional services you'd like to pay for</p>
+                <p className="text-sm text-gray-600">Select additional services you&apos;d like to pay for</p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">

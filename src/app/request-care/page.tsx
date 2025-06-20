@@ -6,7 +6,7 @@ import Layout from '@/components/Layout';
 import { mockAuth, mockRequests, specialties, insuranceProviders } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { Heart, AlertCircle, Clock, Calendar } from 'lucide-react';
+import { Heart, AlertCircle } from 'lucide-react';
 import { generateId } from '@/lib/utils';
 import { RequestFormData } from '@/lib/types';
 
@@ -60,7 +60,7 @@ export default function RequestCare() {
     router.push('/dashboard?success=request-submitted');
   };
 
-  const handleInputChange = (field: keyof RequestFormData, value: any) => {
+  const handleInputChange = (field: keyof RequestFormData, value: string | Date | undefined) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -69,7 +69,7 @@ export default function RequestCare() {
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Request Medical Care</h1>
-          <p className="text-gray-600">Tell us about your medical needs and we'll connect you with the right provider.</p>
+          <p className="text-gray-600">Tell us about your medical needs and we&apos;ll connect you with the right provider.</p>
         </div>
 
         <Card>

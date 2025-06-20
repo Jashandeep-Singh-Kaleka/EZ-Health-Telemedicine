@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
-import { mockAuth, mockRequests } from '@/lib/mock-data';
+import { mockAuth } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { 
@@ -16,7 +16,7 @@ import {
   CheckCircle,
   Clock
 } from 'lucide-react';
-import { formatDateTime, formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 export default function Billing() {
   const currentUser = mockAuth.currentUser;
@@ -27,10 +27,10 @@ export default function Billing() {
   }
 
   // Get provider's completed appointments for billing
-  const completedAppointments = mockRequests.filter(request => 
-    request.providerId === currentUser.id && 
-    request.status === 'completed'
-  );
+  // const completedAppointments = mockRequests.filter(request => 
+  //   request.providerId === currentUser.id && 
+  //   request.status === 'completed'
+  // );
 
   // Mock earnings data
   const earningsData = {

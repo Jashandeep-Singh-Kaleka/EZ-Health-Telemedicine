@@ -3,13 +3,12 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import { mockAuth, mockRequests } from '@/lib/mock-data';
-import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { 
   Users, 
   Phone, 
   Mail, 
-  Calendar, 
   FileText,
   Clock,
   MessageCircle,
@@ -34,16 +33,10 @@ export default function Patients() {
       // Avoid duplicating patients
       const existingPatient = acc.find(p => p.patient.id === request.patient.id);
       if (!existingPatient) {
-        acc.push({
-          ...request,
-          // Get the most recent request for this patient
-          lastRequest: mockRequests
-            .filter(r => r.patientId === request.patient.id && r.providerId === currentUser.id)
-            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
-        });
+        acc.push(request);
       }
       return acc;
-    }, [] as any[]);
+    }, [] as typeof mockRequests);
 
   const filteredPatients = myPatients.filter(patient =>
     patient.patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

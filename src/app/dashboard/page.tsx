@@ -35,7 +35,7 @@ export default function Dashboard() {
             <h1 className="text-2xl font-bold text-gray-900">
               Welcome back, {currentUser.name}
             </h1>
-            <p className="text-gray-600">Here's what's happening with your practice today.</p>
+            <p className="text-gray-600">Here&apos;s what&apos;s happening with your practice today.</p>
           </div>
 
           {/* Stats Cards */}
@@ -61,7 +61,7 @@ export default function Dashboard() {
                     <Calendar className="h-6 w-6 text-green-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Today's Appointments</p>
+                    <p className="text-sm font-medium text-gray-600">Today&apos;s Appointments</p>
                     <p className="text-2xl font-bold text-gray-900">{todayAppointments.length}</p>
                   </div>
                 </div>

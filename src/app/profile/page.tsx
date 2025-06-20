@@ -19,11 +19,12 @@ import {
   X
 } from 'lucide-react';
 import { formatDate, getAgeFromDate } from '@/lib/utils';
+import { Patient, Provider } from '@/lib/types';
 
 export default function Profile() {
   const currentUser = mockAuth.currentUser;
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState(currentUser || {});
+  const [formData, setFormData] = useState(currentUser!); // We know it's not null due to auth check
 
   if (!currentUser) {
     return null;
@@ -40,7 +41,7 @@ export default function Profile() {
     setIsEditing(false);
   };
 
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: string | Date | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -188,7 +189,7 @@ export default function Profile() {
                         {isEditing ? (
                           <input
                             type="tel"
-                            value={formData.phone || ''}
+                            value={('phone' in formData) ? (formData as Patient).phone : ''}
                             onChange={(e) => handleChange('phone', e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                           />
@@ -207,7 +208,7 @@ export default function Profile() {
                         {isEditing ? (
                           <input
                             type="date"
-                            value={formData.dateOfBirth ? new Date(formData.dateOfBirth).toISOString().split('T')[0] : ''}
+                            value={('dateOfBirth' in formData) ? new Date((formData as Patient).dateOfBirth).toISOString().split('T')[0] : ''}
                             onChange={(e) => handleChange('dateOfBirth', new Date(e.target.value))}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                           />
@@ -248,7 +249,7 @@ export default function Profile() {
                       {isEditing ? (
                         <input
                           type="text"
-                          value={formData.licenseNumber || ''}
+                          value={('licenseNumber' in formData) ? (formData as Provider).licenseNumber : ''}
                           onChange={(e) => handleChange('licenseNumber', e.target.value)}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                         />
@@ -269,7 +270,7 @@ export default function Profile() {
                       {isEditing ? (
                         <input
                           type="text"
-                          value={formData.insurance || ''}
+                          value={('insurance' in formData) ? (formData as Patient).insurance || '' : ''}
                           onChange={(e) => handleChange('insurance', e.target.value)}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                         />
@@ -296,7 +297,7 @@ export default function Profile() {
                         {isEditing ? (
                           <input
                             type="number"
-                            value={formData.yearsExperience || 0}
+                            value={('yearsExperience' in formData) ? (formData as Provider).yearsExperience || 0 : 0}
                             onChange={(e) => handleChange('yearsExperience', parseInt(e.target.value))}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                           />
@@ -313,7 +314,7 @@ export default function Profile() {
                         </label>
                         {isEditing ? (
                           <select
-                            value={formData.isAvailable ? 'available' : 'unavailable'}
+                            value={('isAvailable' in formData) ? ((formData as Provider).isAvailable ? 'available' : 'unavailable') : 'unavailable'}
                             onChange={(e) => handleChange('isAvailable', e.target.value === 'available')}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                           >

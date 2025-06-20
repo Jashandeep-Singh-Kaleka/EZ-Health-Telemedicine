@@ -8,14 +8,12 @@ import {
   Users, 
   Calendar, 
   FileText, 
-  Settings, 
   LogOut,
   User,
   Heart,
   Bell,
   Home,
-  CreditCard,
-  ShoppingCart
+  CreditCard
 } from 'lucide-react';
 import { mockAuth } from '@/lib/mock-data';
 import { cn } from '@/lib/utils';
