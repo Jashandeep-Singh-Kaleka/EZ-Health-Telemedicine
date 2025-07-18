@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Stethoscope, User, UserPlus, ChevronRight } from 'lucide-react';
+import { User, UserPlus, ChevronRight, Heart, Shield, Clock } from 'lucide-react';
+import Image from 'next/image';
 import { mockAuth } from '@/lib/mock-data';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
@@ -51,24 +52,46 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
       <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="flex justify-center">
-                         <div className="flex items-center">
-               <Stethoscope className="h-12 w-12 text-blue-600" />
-               <span className="ml-3 text-3xl font-bold text-gray-900">EZ Health</span>
-             </div>
+        <div className="sm:mx-auto sm:w-full sm:max-w-lg">
+          <div className="flex justify-center mb-8">
+            <Image 
+              src="/xpress-health-logo.svg" 
+              alt="XPress Health Logo" 
+              width={240} 
+              height={60}
+              className="h-16 w-auto"
+            />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Welcome to TeleMedicine
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Connecting patients with healthcare providers
-          </p>
+          
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              Welcome to XPress Health
+            </h1>
+            <p className="text-lg text-gray-600 mb-6">
+              Fast, secure, and reliable healthcare at your fingertips
+            </p>
+            
+            {/* Feature highlights */}
+            <div className="flex justify-center space-x-6 mb-8">
+              <div className="flex items-center text-sm text-emerald-600">
+                <Heart className="h-4 w-4 mr-1" />
+                <span>24/7 Care</span>
+              </div>
+              <div className="flex items-center text-sm text-emerald-600">
+                <Shield className="h-4 w-4 mr-1" />
+                <span>Secure</span>
+              </div>
+              <div className="flex items-center text-sm text-emerald-600">
+                <Clock className="h-4 w-4 mr-1" />
+                <span>Instant</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
           <div className="space-y-6">
             {/* Role Selection */}
             {!selectedRole && (
@@ -81,34 +104,34 @@ export default function Home() {
                 <CardContent className="space-y-4">
                   <button
                     onClick={() => setSelectedRole('patient')}
-                    className="w-full flex items-center justify-between p-4 border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+                    className="w-full flex items-center justify-between p-6 border border-emerald-200 rounded-xl hover:border-emerald-400 hover:bg-emerald-50 transition-all duration-200 shadow-sm hover:shadow-green"
                   >
                     <div className="flex items-center">
-                      <div className="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
-                        <User className="h-5 w-5 text-green-600" />
+                      <div className="h-12 w-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                        <User className="h-6 w-6 text-emerald-600" />
                       </div>
-                      <div className="ml-3 text-left">
-                        <div className="text-sm font-medium text-gray-900">Patient</div>
-                        <div className="text-xs text-gray-500">Request medical care</div>
+                      <div className="ml-4 text-left">
+                        <div className="text-base font-semibold text-gray-900">Patient</div>
+                        <div className="text-sm text-gray-500">Request medical care instantly</div>
                       </div>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
+                    <ChevronRight className="h-5 w-5 text-emerald-400" />
                   </button>
 
                   <button
                     onClick={() => setSelectedRole('provider')}
-                    className="w-full flex items-center justify-between p-4 border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+                    className="w-full flex items-center justify-between p-6 border border-emerald-200 rounded-xl hover:border-emerald-400 hover:bg-emerald-50 transition-all duration-200 shadow-sm hover:shadow-green"
                   >
                     <div className="flex items-center">
-                      <div className="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        <UserPlus className="h-5 w-5 text-blue-600" />
+                      <div className="h-12 w-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                        <UserPlus className="h-6 w-6 text-emerald-600" />
                       </div>
-                      <div className="ml-3 text-left">
-                        <div className="text-sm font-medium text-gray-900">Healthcare Provider</div>
-                        <div className="text-xs text-gray-500">Provide medical services</div>
+                      <div className="ml-4 text-left">
+                        <div className="text-base font-semibold text-gray-900">Healthcare Provider</div>
+                        <div className="text-sm text-gray-500">Provide medical services</div>
                       </div>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
+                    <ChevronRight className="h-5 w-5 text-emerald-400" />
                   </button>
                 </CardContent>
               </Card>
@@ -143,7 +166,7 @@ export default function Home() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
                         placeholder="Enter your email"
                       />
                     </div>
@@ -159,7 +182,7 @@ export default function Home() {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
                         placeholder="Enter your password"
                       />
                     </div>

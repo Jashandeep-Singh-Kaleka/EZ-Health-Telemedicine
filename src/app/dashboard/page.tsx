@@ -32,10 +32,10 @@ export default function Dashboard() {
       <Layout>
         <div className="space-y-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900">
               Welcome back, {currentUser.name}
             </h1>
-            <p className="text-gray-600">Here&apos;s what&apos;s happening with your practice today.</p>
+            <p className="text-gray-700 text-lg">Here&apos;s what&apos;s happening with your practice today.</p>
           </div>
 
           {/* Stats Cards */}
@@ -43,11 +43,11 @@ export default function Dashboard() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Users className="h-6 w-6 text-blue-600" />
+                  <div className="p-2 bg-emerald-100 rounded-lg">
+                    <Users className="h-6 w-6 text-emerald-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Active Patients</p>
+                    <p className="text-sm font-medium text-gray-700">Active Patients</p>
                     <p className="text-2xl font-bold text-gray-900">{myRequests.length}</p>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ export default function Dashboard() {
                     <Calendar className="h-6 w-6 text-green-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Today&apos;s Appointments</p>
+                    <p className="text-sm font-medium text-gray-700">Today&apos;s Appointments</p>
                     <p className="text-2xl font-bold text-gray-900">{todayAppointments.length}</p>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export default function Dashboard() {
                     <Bell className="h-6 w-6 text-yellow-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">New Requests</p>
+                    <p className="text-sm font-medium text-gray-700">New Requests</p>
                     <p className="text-2xl font-bold text-gray-900">{pendingRequests.length}</p>
                   </div>
                 </div>
@@ -85,11 +85,11 @@ export default function Dashboard() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <TrendingUp className="h-6 w-6 text-purple-600" />
+                  <div className="p-2 bg-emerald-100 rounded-lg">
+                    <TrendingUp className="h-6 w-6 text-emerald-600" />
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Rating</p>
+                    <p className="text-sm font-medium text-gray-700">Rating</p>
                     <p className="text-2xl font-bold text-gray-900">{currentUser.rating}</p>
                   </div>
                 </div>
@@ -109,8 +109,8 @@ export default function Dashboard() {
                     <div key={request.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div className="flex-1">
                         <p className="font-medium text-gray-900">{request.patient.name}</p>
-                        <p className="text-sm text-gray-600">{request.symptoms}</p>
-                        <p className="text-xs text-gray-500">{formatDateTime(request.createdAt)}</p>
+                        <p className="text-sm text-gray-700">{request.symptoms}</p>
+                        <p className="text-xs text-gray-600">{formatDateTime(request.createdAt)}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getUrgencyColor(request.urgency)}`}>
@@ -136,8 +136,8 @@ export default function Dashboard() {
                     <div key={request.id} className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
                       <div className="flex-1">
                         <p className="font-medium text-gray-900">{request.specialty}</p>
-                        <p className="text-sm text-gray-600">{request.symptoms}</p>
-                        <p className="text-xs text-gray-500">Zip: {request.zipCode}</p>
+                        <p className="text-sm text-gray-700">{request.symptoms}</p>
+                        <p className="text-xs text-gray-600">Zip: {request.zipCode}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getUrgencyColor(request.urgency)}`}>
@@ -165,10 +165,10 @@ export default function Dashboard() {
     <Layout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900">
             Welcome back, {currentUser.name}
           </h1>
-          <p className="text-gray-600">Manage your health and appointments.</p>
+          <p className="text-gray-700 text-lg">Manage your health and appointments.</p>
         </div>
 
         {/* Stats Cards */}
@@ -176,11 +176,11 @@ export default function Dashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Heart className="h-6 w-6 text-blue-600" />
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <Heart className="h-6 w-6 text-emerald-600" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Active Requests</p>
+                  <p className="text-sm font-medium text-gray-700">Active Requests</p>
                   <p className="text-2xl font-bold text-gray-900">{activeRequests.length}</p>
                 </div>
               </div>
@@ -194,7 +194,7 @@ export default function Dashboard() {
                   <Activity className="h-6 w-6 text-green-600" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Completed</p>
+                  <p className="text-sm font-medium text-gray-700">Completed</p>
                   <p className="text-2xl font-bold text-gray-900">{completedRequests.length}</p>
                 </div>
               </div>
@@ -204,11 +204,11 @@ export default function Dashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <FileText className="h-6 w-6 text-purple-600" />
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <FileText className="h-6 w-6 text-emerald-600" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Total Requests</p>
+                  <p className="text-sm font-medium text-gray-700">Total Requests</p>
                   <p className="text-2xl font-bold text-gray-900">{myRequests.length}</p>
                 </div>
               </div>
@@ -226,7 +226,7 @@ export default function Dashboard() {
               {myRequests.length === 0 ? (
                 <div className="text-center py-8">
                   <Heart className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-500">No requests yet. Request care when you need it!</p>
+                  <p className="text-gray-600">No requests yet. Request care when you need it!</p>
                 </div>
               ) : (
                 myRequests.map((request) => (
@@ -241,11 +241,11 @@ export default function Dashboard() {
                           {request.urgency}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 mt-1">{request.symptoms}</p>
+                      <p className="text-sm text-gray-700 mt-1">{request.symptoms}</p>
                       {request.provider && (
-                        <p className="text-sm text-blue-600 mt-1">Assigned to: {request.provider.name}</p>
+                        <p className="text-sm text-emerald-600 mt-1">Assigned to: {request.provider.name}</p>
                       )}
-                      <p className="text-xs text-gray-500 mt-1">{formatDateTime(request.createdAt)}</p>
+                      <p className="text-xs text-gray-600 mt-1">{formatDateTime(request.createdAt)}</p>
                     </div>
                   </div>
                 ))

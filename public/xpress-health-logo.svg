@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="crossGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F0FDF4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="30" cy="30" r="25" fill="url(#logoGradient)" stroke="#047857" stroke-width="2"/>
+  
+  <!-- Medical cross -->
+  <rect x="26" y="18" width="8" height="24" fill="url(#crossGradient)" rx="2"/>
+  <rect x="18" y="26" width="24" height="8" fill="url(#crossGradient)" rx="2"/>
+  
+  <!-- Speed lines for "Express" concept -->
+  <g stroke="#10B981" stroke-width="2" opacity="0.7">
+    <line x1="65" y1="20" x2="75" y2="20" stroke-linecap="round"/>
+    <line x1="65" y1="25" x2="80" y2="25" stroke-linecap="round"/>
+    <line x1="65" y1="30" x2="85" y2="30" stroke-linecap="round"/>
+    <line x1="65" y1="35" x2="80" y2="35" stroke-linecap="round"/>
+    <line x1="65" y1="40" x2="75" y2="40" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="95" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#047857">XPress</text>
+  <text x="95" y="45" font-family="Arial, sans-serif" font-size="16" font-weight="600" fill="#059669">Health</text>
+  
+  <!-- Small pulse effect -->
+  <circle cx="30" cy="30" r="28" fill="none" stroke="#10B981" stroke-width="1" opacity="0.3">
+    <animate attributeName="r" values="28;32;28" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>

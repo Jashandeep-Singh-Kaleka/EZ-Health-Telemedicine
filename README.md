@@ -1,4 +1,4 @@
-# EZ Health - Telemedicine Platform
+# XPress Health - Telemedicine Platform
 
 A modern, responsive telemedicine platform built with Next.js, similar to Push Health Portal. This application connects patients with healthcare providers through a secure, user-friendly interface.
 
@@ -47,7 +47,7 @@ A modern, responsive telemedicine platform built with Next.js, similar to Push H
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd telemedicine-app
+   cd xpress-health-app
    ```
 
 2. **Install dependencies**
