@@ -7,14 +7,12 @@ import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Image from 'next/image';
 import { 
-  UserPlus, 
   Share2, 
   Copy, 
   Mail, 
   MessageSquare, 
   QrCode,
   CheckCircle,
-  Users,
   Link,
   Download,
   Globe
@@ -309,8 +307,8 @@ Dr. ${currentUser.name}`;
                   <p className="text-sm font-medium text-gray-700 mb-2">Social Media Copy</p>
                   <div className="bg-gray-50 rounded-lg p-3">
                     <p className="text-sm text-gray-700">
-                      "Now accepting patients through XPress Health! Get instant prescriptions, lab tests, 
-                      and consultations. Cash-only, transparent pricing. Connect with me: {providerLink}"
+                      &ldquo;Now accepting patients through XPress Health! Get instant prescriptions, lab tests, 
+                      and consultations. Cash-only, transparent pricing. Connect with me: {providerLink}&rdquo;
                     </p>
                   </div>
                 </div>

@@ -37,7 +37,7 @@ export default function MedicalRecords() {
     ...medicalHistory.map((request) => ({
       id: `visit-${request.id}`,
       type: 'visit' as const,
-      title: `${request.specialty} - ${request.symptoms}`,
+      title: `${request.type.replace('-', ' ')} - ${request.symptoms}`,
       date: request.updatedAt,
       provider: request.provider?.name || 'Dr. Unknown',
       status: 'completed',

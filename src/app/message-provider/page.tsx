@@ -131,7 +131,7 @@ export default function MessageProvider() {
             <CardContent className="space-y-4">
               <div>
                 <label htmlFor="symptoms" className="block text-sm font-medium text-gray-700 mb-2">
-                  What's the main reason for your consultation?
+                  What&apos;s the main reason for your consultation?
                 </label>
                 <input
                   id="symptoms"

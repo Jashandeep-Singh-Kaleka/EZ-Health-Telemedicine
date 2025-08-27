@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import { mockAuth, mockRequests } from '@/lib/mock-data';
-import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { 
   Calendar, 

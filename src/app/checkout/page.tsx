@@ -139,7 +139,7 @@ export default function Checkout() {
                     {completedAppointments.map((appointment) => (
                       <div key={appointment.id} className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                         <div>
-                          <p className="font-medium text-gray-900">{appointment.specialty}</p>
+                          <p className="font-medium text-gray-900">{appointment.type.replace('-', ' ')}</p>
                           <p className="text-sm text-gray-600">
                             with {appointment.provider?.name}
                           </p>
@@ -315,8 +315,8 @@ export default function Checkout() {
                       <div className="flex items-center">
                         <AlertCircle className="h-5 w-5 text-blue-600 mr-2" />
                         <p className="text-sm text-blue-800">
-                          Your insurance ({currentUser.insurance || 'Unknown'}) will be billed directly. 
-                          You may be responsible for co-pays or deductibles.
+                          This is a cash-only service. Payment is processed immediately.
+                          No insurance claims or billing required.
                         </p>
                       </div>
                     </div>
@@ -336,7 +336,7 @@ export default function Checkout() {
                 {/* Outstanding Bills */}
                 {completedAppointments.map((appointment) => (
                   <div key={appointment.id} className="flex justify-between text-sm">
-                    <span>{appointment.specialty}</span>
+                    <span>{appointment.type.replace('-', ' ')}</span>
                     <span>$75</span>
                   </div>
                 ))}

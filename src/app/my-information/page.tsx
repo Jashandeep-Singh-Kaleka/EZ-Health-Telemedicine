@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import { Patient } from '@/lib/types';
 import Layout from '@/components/Layout';
 import { mockAuth } from '@/lib/mock-data';
-import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { 
   User, 
@@ -27,21 +28,21 @@ interface EditableField {
 export default function MyInformation() {
   const currentUser = mockAuth.currentUser;
   const [editableField, setEditableField] = useState<EditableField>({ field: '', isEditing: false });
+  const patient = currentUser as Patient;
   const [formData, setFormData] = useState({
     name: currentUser?.name || '',
     email: currentUser?.email || '',
-    phone: (currentUser as any)?.phone || '',
-    zipCode: (currentUser as any)?.zipCode || '',
-    emergencyContactName: (currentUser as any)?.emergencyContact?.name || '',
-    emergencyContactPhone: (currentUser as any)?.emergencyContact?.phone || '',
-    emergencyContactRelationship: (currentUser as any)?.emergencyContact?.relationship || '',
+    phone: patient?.phone || '',
+    zipCode: patient?.zipCode || '',
+    emergencyContactName: patient?.emergencyContact?.name || '',
+    emergencyContactPhone: patient?.emergencyContact?.phone || '',
+    emergencyContactRelationship: patient?.emergencyContact?.relationship || '',
   });
 
   if (!currentUser || currentUser.role !== 'patient') {
     return null;
   }
 
-  const patient = currentUser as any;
 
   const handleEdit = (field: string) => {
     setEditableField({ field, isEditing: true });

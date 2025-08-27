@@ -41,7 +41,7 @@ export default function Patients() {
   const filteredPatients = myPatients.filter(patient =>
     patient.patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.symptoms.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    patient.specialty.toLowerCase().includes(searchTerm.toLowerCase())
+    patient.type.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const activePatients = filteredPatients.filter(p => ['accepted', 'in-progress'].includes(p.status));
@@ -162,7 +162,7 @@ export default function Patients() {
                         <div className="border-t pt-4">
                           <div className="mb-2">
                             <p className="text-sm font-medium text-gray-700">Current Case</p>
-                            <p className="text-sm text-gray-600">{request.specialty} - {request.symptoms}</p>
+                            <p className="text-sm text-gray-600">{request.type.replace('-', ' ')} - {request.symptoms}</p>
                           </div>
                           <div className="mb-4">
                             <p className="text-xs text-gray-500">
@@ -246,12 +246,12 @@ export default function Patients() {
                                   </div>
                                   <div className="ml-3">
                                     <div className="text-sm font-medium text-gray-900">{patient.name}</div>
-                                    <div className="text-xs text-gray-500">Age {patientAge} • {patient.insurance || 'No insurance'}</div>
+                                    <div className="text-xs text-gray-500">Age {patientAge} • Cash Payment</div>
                                   </div>
                                 </div>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{request.specialty}</div>
+                                <div className="text-sm text-gray-900">{request.type.replace('-', ' ')}</div>
                                 <div className="text-xs text-gray-500">{request.symptoms}</div>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">

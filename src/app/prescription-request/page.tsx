@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Pill, MapPin, Phone } from 'lucide-react';
-import Image from 'next/image';
+import { Pill, MapPin } from 'lucide-react';
 import Layout from '@/components/Layout';
 import Button from '@/components/ui/Button';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';

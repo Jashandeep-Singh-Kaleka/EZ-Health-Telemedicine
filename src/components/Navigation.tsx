@@ -5,15 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
   Users, 
-  Calendar, 
-  FileText, 
   LogOut,
   User,
-  Heart,
   Bell,
-  Home,
-  CreditCard,
-  MapPin,
   Menu,
   X,
   MessageSquare,
@@ -22,7 +16,7 @@ import {
   Activity,
   BarChart3,
   UserPlus,
-  Share2
+  Calendar
 } from 'lucide-react';
 import Image from 'next/image';
 import { mockAuth } from '@/lib/mock-data';
@@ -30,6 +24,13 @@ import { cn } from '@/lib/utils';
 
 interface NavigationProps {
   onLogout: () => void;
+}
+
+interface NavigationItem {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: number;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
@@ -42,7 +43,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
   // Count pending requests for notification badge
   const pendingRequestsCount = 0; // This would come from actual state management
 
-  const providerNavItems = [
+  const providerNavItems: NavigationItem[] = [
     { href: '/requests', label: 'New Requests', icon: Bell, badge: pendingRequestsCount },
     { href: '/activity', label: 'Activity Summary', icon: Activity },
     { href: '/patients', label: 'Patients', icon: Users },
@@ -51,7 +52,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
     { href: '/profile', label: 'My Profile', icon: User },
   ];
 
-  const patientNavItems = [
+  const patientNavItems: NavigationItem[] = [
     { href: '/prescription-request', label: 'Prescription Request', icon: Pill },
     { href: '/lab-test-request', label: 'Lab Tests Request', icon: FlaskConical },
     { href: '/message-provider', label: 'Message Provider', icon: MessageSquare },

@@ -2,18 +2,14 @@
 
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
-import { mockAuth, mockRequests } from '@/lib/mock-data';
+import { mockAuth } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Image from 'next/image';
 import { 
-  BarChart3, 
-  TrendingUp, 
-  TrendingDown,
+  TrendingUp,
   Users, 
-  Clock,
   CheckCircle,
   DollarSign,
-  Calendar,
   Star,
   Activity,
   Pill,
@@ -31,7 +27,6 @@ export default function PracticeMetrics() {
     return null;
   }
 
-  const myRequests = mockRequests.filter(r => r.providerId === currentUser.id);
 
   // Mock metrics data
   const getMetricsForPeriod = (period: MetricPeriod) => {

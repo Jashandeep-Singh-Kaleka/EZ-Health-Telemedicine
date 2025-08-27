@@ -158,9 +158,9 @@ export default function LabTestRequest() {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="font-medium text-blue-900 mb-2">Important Information</h4>
                 <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• Lab tests require a provider's order before they can be processed</li>
+                  <li>• Lab tests require a provider&apos;s order before they can be processed</li>
                   <li>• You will receive instructions on where to get your tests done</li>
-                  <li>• Fasting may be required for certain tests - you'll be notified if needed</li>
+                  <li>• Fasting may be required for certain tests - you&apos;ll be notified if needed</li>
                   <li>• Results will be available in your patient portal once completed</li>
                 </ul>
               </div>

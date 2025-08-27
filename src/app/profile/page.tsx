@@ -262,26 +262,7 @@ export default function Profile() {
                     </div>
                   )}
 
-                  {currentUser.role === 'patient' && currentUser.insurance && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Insurance Provider
-                      </label>
-                      {isEditing ? (
-                        <input
-                          type="text"
-                          value={('insurance' in formData) ? (formData as Patient).insurance || '' : ''}
-                          onChange={(e) => handleChange('insurance', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                        />
-                      ) : (
-                        <div className="flex items-center text-sm text-gray-900">
-                          <Shield className="h-4 w-4 mr-2 text-gray-400" />
-                          {currentUser.insurance}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  {/* Cash-only platform - no insurance fields needed */}
                 </div>
 
                 {/* Provider-specific fields */}

@@ -11,15 +11,10 @@ import {
   MapPin, 
   Clock, 
   User, 
-  AlertCircle,
   CheckCircle,
-  Filter,
-  Pill,
-  FlaskConical,
-  MessageCircle
+  Filter
 } from 'lucide-react';
 import { formatDateTime, getAgeFromDate } from '@/lib/utils';
-import { MedicalRequest } from '@/lib/types';
 
 export default function Requests() {
   const currentUser = mockAuth.currentUser;
@@ -31,10 +26,7 @@ export default function Requests() {
   }
 
   // Get all pending requests (since we're cash-only, no insurance filtering needed)
-  const allRequests = mockRequests.filter(request => {
-    // Show all pending requests regardless of specialty for simplified workflow
-    return true;
-  });
+  const allRequests = mockRequests;
 
   const pendingRequestsCount = allRequests.filter(r => r.status === 'pending').length;
 
@@ -62,18 +54,6 @@ export default function Requests() {
     setAcceptingRequest(null);
   };
 
-  const getRequestIcon = (type: string) => {
-    switch (type) {
-      case 'prescription-request':
-        return <Pill className="h-5 w-5 text-blue-600" />;
-      case 'lab-test-request':
-        return <FlaskConical className="h-5 w-5 text-purple-600" />;
-      case 'general-consultation':
-        return <MessageCircle className="h-5 w-5 text-green-600" />;
-      default:
-        return <User className="h-5 w-5 text-gray-600" />;
-    }
-  };
 
   const getTypeDisplayName = (type: string) => {
     switch (type) {
@@ -263,14 +243,6 @@ export default function Requests() {
                           <p className="text-sm text-gray-600">{request.description}</p>
                         </div>
 
-                        {request.preferredDateTime && (
-                          <div className="mb-4">
-                            <p className="text-sm font-medium text-gray-700 mb-1">Preferred Time</p>
-                            <p className="text-sm text-gray-600">
-                              {formatDateTime(request.preferredDateTime)}
-                            </p>
-                          </div>
-                        )}
                       </div>
 
                       <div className="ml-6 flex flex-col space-y-2">
