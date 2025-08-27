@@ -24,7 +24,6 @@ export interface Patient extends User {
   dateOfBirth: Date;
   zipCode: string;
   phone: string;
-  insurance?: string;
   emergencyContact: {
     name: string;
     phone: string;
@@ -38,17 +37,18 @@ export interface MedicalRequest {
   patient: Patient;
   providerId?: string;
   provider?: Provider;
-  type: 'consultation' | 'prescription' | 'follow-up' | 'urgent-care';
-  specialty: string;
+  type: 'general-consultation' | 'prescription-request' | 'lab-test-request';
   symptoms: string;
   description: string;
-  urgency: 'low' | 'medium' | 'high' | 'urgent';
-  preferredDateTime?: Date;
   status: 'pending' | 'matched' | 'accepted' | 'in-progress' | 'completed' | 'cancelled';
   createdAt: Date;
   updatedAt: Date;
   zipCode: string;
-  insurance?: string;
+  pharmacy?: {
+    name: string;
+    address: string;
+    phone: string;
+  };
 }
 
 export interface Appointment {
@@ -74,11 +74,12 @@ export interface LoginCredentials {
 }
 
 export interface RequestFormData {
-  type: 'consultation' | 'prescription' | 'follow-up' | 'urgent-care';
-  specialty: string;
+  type: 'general-consultation' | 'prescription-request' | 'lab-test-request';
   symptoms: string;
   description: string;
-  urgency: 'low' | 'medium' | 'high' | 'urgent';
-  preferredDateTime?: Date;
-  insurance?: string;
+  pharmacy?: {
+    name: string;
+    address: string;
+    phone: string;
+  };
 } 

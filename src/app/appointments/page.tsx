@@ -140,7 +140,7 @@ export default function Appointments() {
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Video Calls</p>
                   <p className="text-2xl font-bold text-gray-900">
-                    {upcomingAppointments.filter(a => a.type === 'consultation').length}
+                    {upcomingAppointments.filter(a => a.type === 'general-consultation').length}
                   </p>
                 </div>
               </div>
@@ -186,7 +186,7 @@ export default function Appointments() {
                         ? nextAppointment.patient.name 
                         : nextAppointment.provider?.name || 'Provider TBD'}
                     </h4>
-                    <p className="text-sm text-gray-600">{nextAppointment.specialty}</p>
+                    <p className="text-sm text-gray-600">{nextAppointment.type.replace('-', ' ')}</p>
                     <p className="text-sm text-gray-500">
                       {formatDateTime(nextAppointment.scheduledAt)} • {nextAppointment.duration} minutes
                     </p>
@@ -270,7 +270,7 @@ export default function Appointments() {
                           <h4 className="text-sm font-medium text-gray-900">
                             {otherUser?.name || 'TBD'}
                           </h4>
-                          <p className="text-xs text-gray-600">{appointment.specialty}</p>
+                          <p className="text-xs text-gray-600">{appointment.type.replace('-', ' ')}</p>
                           <p className="text-xs text-gray-500">
                             {formatDateTime(appointment.scheduledAt)}
                           </p>

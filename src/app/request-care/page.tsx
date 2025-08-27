@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
-import { mockAuth, mockRequests, specialties, insuranceProviders } from '@/lib/mock-data';
+import { mockAuth, mockRequests, specialties } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Heart, AlertCircle } from 'lucide-react';

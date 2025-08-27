@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Layout from '@/components/Layout';
 import { mockAuth, mockRequests } from '@/lib/mock-data';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -12,9 +13,12 @@ import {
   User, 
   AlertCircle,
   CheckCircle,
-  Filter
+  Filter,
+  Pill,
+  FlaskConical,
+  MessageCircle
 } from 'lucide-react';
-import { formatDateTime, getUrgencyColor, getAgeFromDate, matchProvidersToRequest } from '@/lib/utils';
+import { formatDateTime, getAgeFromDate } from '@/lib/utils';
 import { MedicalRequest } from '@/lib/types';
 
 export default function Requests() {
@@ -26,18 +30,13 @@ export default function Requests() {
     return null;
   }
 
-  // Get all requests that could be matched to this provider
+  // Get all pending requests (since we're cash-only, no insurance filtering needed)
   const allRequests = mockRequests.filter(request => {
-    // Filter based on specialty match and other criteria
-    const hasMatchingSpecialty = currentUser.specialties.some(specialty =>
-      specialty.toLowerCase().includes(request.specialty.toLowerCase()) ||
-      request.specialty.toLowerCase().includes(specialty.toLowerCase())
-    );
-    
-    const acceptsInsurance = !request.insurance || currentUser.acceptedInsurance.includes(request.insurance);
-    
-    return hasMatchingSpecialty && acceptsInsurance;
+    // Show all pending requests regardless of specialty for simplified workflow
+    return true;
   });
+
+  const pendingRequestsCount = allRequests.filter(r => r.status === 'pending').length;
 
   const filteredRequests = allRequests.filter(request => {
     if (filter === 'pending') return request.status === 'pending';
@@ -63,26 +62,58 @@ export default function Requests() {
     setAcceptingRequest(null);
   };
 
-  const getMatchQuality = (request: MedicalRequest) => {
-    const matches = matchProvidersToRequest([currentUser], request);
-    if (matches.length === 0) return 'No Match';
-    
-    // Simple scoring based on specialty match and distance
-    const hasExactSpecialty = currentUser.specialties.includes(request.specialty);
-    const zipDistance = Math.abs(parseInt(currentUser.zipCode) - parseInt(request.zipCode));
-    
-    if (hasExactSpecialty && zipDistance < 10) return 'Perfect Match';
-    if (hasExactSpecialty || zipDistance < 20) return 'Good Match';
-    return 'Possible Match';
+  const getRequestIcon = (type: string) => {
+    switch (type) {
+      case 'prescription-request':
+        return <Pill className="h-5 w-5 text-blue-600" />;
+      case 'lab-test-request':
+        return <FlaskConical className="h-5 w-5 text-purple-600" />;
+      case 'general-consultation':
+        return <MessageCircle className="h-5 w-5 text-green-600" />;
+      default:
+        return <User className="h-5 w-5 text-gray-600" />;
+    }
+  };
+
+  const getTypeDisplayName = (type: string) => {
+    switch (type) {
+      case 'prescription-request':
+        return 'Prescription Request';
+      case 'lab-test-request':
+        return 'Lab Test Request';
+      case 'general-consultation':
+        return 'General Consultation';
+      default:
+        return type;
+    }
   };
 
   return (
     <Layout>
       <div className="space-y-6">
+        {/* XPress Health Logo Header */}
+        <div className="flex items-center justify-center mb-8">
+          <Image 
+            src="/xpress-health-logo.svg" 
+            alt="XPress Health Logo" 
+            width={200} 
+            height={50}
+            className="h-12 w-auto"
+          />
+        </div>
+
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Patient Requests</h1>
-            <p className="text-gray-600">Review and accept patient requests in your specialty area.</p>
+            <h1 className={`text-3xl font-bold ${
+              pendingRequestsCount > 0 ? 'text-red-600' : 'text-gray-900'
+            }`}>
+              New Requests {pendingRequestsCount > 0 && (
+                <span className="bg-red-500 text-white text-lg px-3 py-1 rounded-full ml-2">
+                  {pendingRequestsCount}
+                </span>
+              )}
+            </h1>
+            <p className="text-gray-600">Review and accept patient requests for prescriptions, lab tests, and consultations.</p>
           </div>
           
           <div className="flex items-center space-x-2">
@@ -166,7 +197,6 @@ export default function Requests() {
             </Card>
           ) : (
             filteredRequests.map((request) => {
-              const matchQuality = getMatchQuality(request);
               const patientAge = getAgeFromDate(request.patient.dateOfBirth);
               
               return (
@@ -183,23 +213,25 @@ export default function Requests() {
                               {request.patient.name}
                             </h3>
                             <p className="text-sm text-gray-500">
-                              Age {patientAge} • {request.patient.insurance || 'No insurance'}
+                              Cash Payment • {request.patient.zipCode}
                             </p>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getUrgencyColor(request.urgency)}`}>
-                              {request.urgency} priority
+                            <span className="px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-800">
+                              {getTypeDisplayName(request.type)}
                             </span>
-                            <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700">
-                              {matchQuality}
-                            </span>
+                            {request.status === 'pending' && (
+                              <span className="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 animate-pulse">
+                                NEW
+                              </span>
+                            )}
                           </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                           <div>
-                            <p className="text-sm font-medium text-gray-700">Specialty</p>
-                            <p className="text-sm text-gray-600">{request.specialty}</p>
+                            <p className="text-sm font-medium text-gray-700">Patient Age</p>
+                            <p className="text-sm text-gray-600">{patientAge} years old</p>
                           </div>
                           <div>
                             <p className="text-sm font-medium text-gray-700">Type</p>
@@ -259,12 +291,6 @@ export default function Requests() {
                           </div>
                         )}
                         
-                        {request.urgency === 'urgent' && (
-                          <div className="flex items-center text-red-600 text-xs">
-                            <AlertCircle className="h-3 w-3 mr-1" />
-                            Urgent - Immediate attention needed
-                          </div>
-                        )}
                       </div>
                     </div>
                   </CardContent>

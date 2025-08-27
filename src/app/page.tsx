@@ -70,7 +70,7 @@ export default function Home() {
               Welcome to XPress Health
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Fast, secure, and reliable healthcare at your fingertips
+              Cash-only telemedicine platform connecting patients with healthcare providers
             </p>
             
             {/* Feature highlights */}
@@ -111,8 +111,8 @@ export default function Home() {
                         <User className="h-6 w-6 text-emerald-600" />
                       </div>
                       <div className="ml-4 text-left">
-                        <div className="text-base font-semibold text-gray-900">Patient</div>
-                        <div className="text-sm text-gray-500">Request medical care instantly</div>
+                        <div className="text-base font-semibold text-gray-900">Patient Portal</div>
+                        <div className="text-sm text-gray-500">Prescription requests, lab tests & consultations</div>
                       </div>
                     </div>
                     <ChevronRight className="h-5 w-5 text-emerald-400" />
@@ -127,8 +127,8 @@ export default function Home() {
                         <UserPlus className="h-6 w-6 text-emerald-600" />
                       </div>
                       <div className="ml-4 text-left">
-                        <div className="text-base font-semibold text-gray-900">Healthcare Provider</div>
-                        <div className="text-sm text-gray-500">Provide medical services</div>
+                        <div className="text-base font-semibold text-gray-900">Physician Portal</div>
+                        <div className="text-sm text-gray-500">Manage patients & practice metrics</div>
                       </div>
                     </div>
                     <ChevronRight className="h-5 w-5 text-emerald-400" />
@@ -149,7 +149,7 @@ export default function Home() {
                       ←
                     </button>
                     <h3 className="text-lg font-medium text-gray-900">
-                      Sign in as {selectedRole === 'provider' ? 'Healthcare Provider' : 'Patient'}
+                      Sign in to {selectedRole === 'provider' ? 'Physician Portal' : 'Patient Portal'}
                     </h3>
                   </div>
                 </CardHeader>

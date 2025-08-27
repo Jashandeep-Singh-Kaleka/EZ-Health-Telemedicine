@@ -60,24 +60,6 @@
   --color-primary-900: var(--primary-900);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    
-    /* Dark mode adjustments for green theme */
-    --primary-50: #052e16;
-    --primary-100: #14532d;
-    --primary-200: #166534;
-    --primary-300: #15803d;
-    --primary-400: #16a34a;
-    --primary-500: #22c55e;
-    --primary-600: #4ade80;
-    --primary-700: #86efac;
-    --primary-800: #bbf7d0;
-    --primary-900: #dcfce7;
-  }
-}
 
 body {
   background: var(--background);

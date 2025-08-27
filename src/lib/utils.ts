@@ -88,7 +88,7 @@ function getZipCodeDistance(zip1: string, zip2: string): number {
   return Math.abs(num1 - num2);
 }
 
-// Provider matching algorithm
+// Provider matching algorithm (simplified for cash-only platform)
 export function matchProvidersToRequest(
   providers: Provider[],
   request: MedicalRequest
@@ -98,19 +98,7 @@ export function matchProvidersToRequest(
       // Must be available
       if (!provider.isAvailable) return false;
       
-      // Must have matching specialty
-      const hasMatchingSpecialty = provider.specialties.some(specialty =>
-        specialty.toLowerCase().includes(request.specialty.toLowerCase()) ||
-        request.specialty.toLowerCase().includes(specialty.toLowerCase())
-      );
-      if (!hasMatchingSpecialty) return false;
-      
-      // Must accept patient's insurance (if provided)
-      if (request.insurance) {
-        const acceptsInsurance = provider.acceptedInsurance.includes(request.insurance);
-        if (!acceptsInsurance) return false;
-      }
-      
+      // Since we're cash-only and simplified, any available provider can handle any request
       return true;
     })
     .map(provider => ({
@@ -118,14 +106,9 @@ export function matchProvidersToRequest(
       distance: getZipCodeDistance(provider.zipCode, request.zipCode),
     }))
     .sort((a, b) => {
-      // Sort by urgency first, then distance, then rating
-      if (request.urgency === 'urgent') {
-        return a.distance - b.distance;
-      }
-      
-      // For non-urgent requests, consider rating more heavily
-      const aScore = (a.rating * 0.4) + ((100 - a.distance) * 0.3) + (a.yearsExperience * 0.3);
-      const bScore = (b.rating * 0.4) + ((100 - b.distance) * 0.3) + (b.yearsExperience * 0.3);
+      // Sort by distance first, then rating
+      const aScore = ((100 - a.distance) * 0.6) + (a.rating * 0.4);
+      const bScore = ((100 - b.distance) * 0.6) + (b.rating * 0.4);
       
       return bScore - aScore;
     })

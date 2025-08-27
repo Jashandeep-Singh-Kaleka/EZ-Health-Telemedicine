@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
 import { mockAuth, mockRequests } from '@/lib/mock-data';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
@@ -18,10 +19,31 @@ import { formatDateTime, getUrgencyColor, getStatusColor } from '@/lib/utils';
 
 export default function Dashboard() {
   const currentUser = mockAuth.currentUser;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+
+    // Redirect to the appropriate first page based on role
+    if (currentUser.role === 'provider') {
+      router.replace('/requests');
+    } else {
+      router.replace('/prescription-request');
+    }
+  }, [currentUser, router]);
 
   if (!currentUser) {
     return null;
   }
+
+  // This component will redirect, so we show a loading state
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+    </div>
+  );
 
   if (currentUser.role === 'provider') {
     const myRequests = mockRequests.filter(r => r.providerId === currentUser.id);
