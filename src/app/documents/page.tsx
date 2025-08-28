@@ -134,6 +134,7 @@ export default function Documents() {
       case 'insurance':
         return <FileText className="h-6 w-6 text-orange-500" />;
       case 'image':
+        {/* eslint-disable-next-line jsx-a11y/alt-text */}
         return <Image className="h-6 w-6 text-pink-500" />;
       default:
         return <File className="h-6 w-6 text-gray-500" />;

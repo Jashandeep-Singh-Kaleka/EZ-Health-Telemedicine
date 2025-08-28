@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { mockAuth, mockRequests } from '@/lib/mock-data';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -73,13 +74,15 @@ export default function Requests() {
       <div className="space-y-6">
         {/* XPress Health Logo Header */}
         <div className="flex items-center justify-center mb-8">
-          <Image 
-            src="/xpress-health-logo.svg" 
-            alt="XPress Health Logo" 
-            width={200} 
-            height={50}
-            className="h-12 w-auto"
-          />
+          <Link href="/dashboard" className="hover:opacity-80 transition-opacity">
+            <Image 
+              src="/xpress-health-logo.svg" 
+              alt="XPress Health Logo" 
+              width={200} 
+              height={50}
+              className="h-12 w-auto"
+            />
+          </Link>
         </div>
 
         <div className="flex items-center justify-between">

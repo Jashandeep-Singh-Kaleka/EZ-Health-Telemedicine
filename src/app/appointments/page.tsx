@@ -25,16 +25,31 @@ export default function Appointments() {
     return null;
   }
 
-  // Get appointments based on user role
-  const appointments = currentUser.role === 'provider' 
-    ? mockRequests.filter(request => 
-        request.providerId === currentUser.id && 
-        ['accepted', 'in-progress', 'completed'].includes(request.status)
-      )
-    : mockRequests.filter(request => 
-        request.patientId === currentUser.id && 
-        ['accepted', 'in-progress', 'completed'].includes(request.status)
-      );
+  // Only allow providers to access this page
+  if (currentUser.role !== 'provider') {
+    return (
+      <Layout>
+        <div className="max-w-2xl mx-auto text-center py-12">
+          <div className="h-16 w-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Calendar className="h-8 w-8 text-red-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Restricted</h1>
+          <p className="text-gray-600 mb-8">
+            The Appointments feature is only available to medical providers.
+          </p>
+          <Button onClick={() => window.history.back()}>
+            Go Back
+          </Button>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Get appointments based on user role (currentUser is guaranteed to be provider at this point)
+  const appointments = mockRequests.filter(request => 
+    request.providerId === currentUser.id && 
+    ['accepted', 'in-progress', 'completed'].includes(request.status)
+  );
 
   // Generate upcoming appointments (mock scheduled times)
   const upcomingAppointments = appointments.map((request, index) => {
@@ -66,12 +81,10 @@ export default function Appointments() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              {currentUser.role === 'provider' ? 'My Appointments' : 'My Appointments'}
+              My Appointments
             </h1>
             <p className="text-gray-600">
-              {currentUser.role === 'provider' 
-                ? 'Manage your patient appointments and schedule.' 
-                : 'View your upcoming medical appointments.'}
+              Manage your patient appointments and schedule.
             </p>
           </div>
           
@@ -155,12 +168,10 @@ export default function Appointments() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">
-                    {currentUser.role === 'provider' ? 'Patients' : 'Providers'}
+                    Patients
                   </p>
                   <p className="text-2xl font-bold text-gray-900">
-                    {new Set(upcomingAppointments.map(a => 
-                      currentUser.role === 'provider' ? a.patientId : a.providerId
-                    )).size}
+                    {new Set(upcomingAppointments.map(a => a.patientId)).size}
                   </p>
                 </div>
               </div>
@@ -182,9 +193,7 @@ export default function Appointments() {
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-gray-900">
-                      {currentUser.role === 'provider' 
-                        ? nextAppointment.patient.name 
-                        : nextAppointment.provider?.name || 'Provider TBD'}
+                      {nextAppointment.patient.name}
                     </h4>
                     <p className="text-sm text-gray-600">{nextAppointment.type.replace('-', ' ')}</p>
                     <p className="text-sm text-gray-500">
@@ -248,17 +257,13 @@ export default function Appointments() {
                 <Calendar className="h-12 w-12 mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No appointments scheduled</h3>
                 <p className="text-gray-500">
-                  {currentUser.role === 'patient' 
-                    ? "Request care to schedule your first appointment."
-                    : "Accept patient requests to schedule appointments."}
+                  Accept patient requests to schedule appointments.
                 </p>
               </div>
             ) : (
               <div className="space-y-4">
                 {upcomingAppointments.map((appointment) => {
-                  const otherUser = currentUser.role === 'provider' 
-                    ? appointment.patient 
-                    : appointment.provider;
+                  const otherUser = appointment.patient;
                     
                   return (
                     <div key={appointment.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">

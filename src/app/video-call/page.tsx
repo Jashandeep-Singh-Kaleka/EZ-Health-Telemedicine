@@ -109,6 +109,26 @@ export default function VideoCall() {
     return <Layout><div>Please log in to access video calls.</div></Layout>;
   }
 
+  // Only allow providers to access this page
+  if (currentUser.role !== 'provider') {
+    return (
+      <Layout>
+        <div className="max-w-2xl mx-auto text-center py-12">
+          <div className="h-16 w-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Video className="h-8 w-8 text-red-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Restricted</h1>
+          <p className="text-gray-600 mb-8">
+            The Video Call feature is only available to medical providers.
+          </p>
+          <Button onClick={() => window.history.back()}>
+            Go Back
+          </Button>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto space-y-6">

@@ -98,9 +98,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
   ];
 
   const patientMoreItems: NavigationItem[] = [
-    { href: '/schedule', label: 'Appointments', icon: Calendar },
     { href: '/prescriptions', label: 'My Prescriptions', icon: Pill },
-    { href: '/video-call', label: 'Video Calls', icon: Video },
     { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
     { href: '/documents', label: 'My Documents', icon: FolderOpen },
     { href: '/notifications', label: 'Notifications', icon: Bell },
@@ -115,13 +113,15 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center flex-1 min-w-0">
             <div className="flex-shrink-0 flex items-center">
-              <Image 
-                src="/xpress-health-logo.svg" 
-                alt="XPress Health Logo" 
-                width={140} 
-                height={35}
-                className="h-8 w-auto"
-              />
+              <Link href="/dashboard" className="hover:opacity-80 transition-opacity">
+                <Image 
+                  src="/xpress-health-logo.svg" 
+                  alt="XPress Health Logo" 
+                  width={140} 
+                  height={35}
+                  className="h-8 w-auto"
+                />
+              </Link>
             </div>
             <div className="hidden lg:ml-6 lg:flex lg:space-x-1 items-center flex-1 min-w-0">
               {navItems.filter(item => item.href !== '/profile').map((item) => {
