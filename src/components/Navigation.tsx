@@ -22,7 +22,9 @@ import {
   FileText,
   Video,
   FolderOpen,
-  Stethoscope
+  Stethoscope,
+  ChevronDown,
+  Plus
 } from 'lucide-react';
 import Image from 'next/image';
 import { mockAuth } from '@/lib/mock-data';
@@ -43,23 +45,34 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
   const pathname = usePathname();
   const currentUser = mockAuth.currentUser;
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [moreDropdownOpen, setMoreDropdownOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setMoreDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   if (!currentUser) return null;
 
   // Count pending requests for notification badge
   const pendingRequestsCount = 0; // This would come from actual state management
 
+  // Original navigation items (keep in main navigation)
   const providerNavItems: NavigationItem[] = [
     { href: '/dashboard', label: 'Dashboard', icon: Home },
-    { href: '/schedule', label: 'Schedule', icon: Calendar },
     { href: '/requests', label: 'New Requests', icon: Bell, badge: pendingRequestsCount },
-    { href: '/patients', label: 'Patients', icon: Users },
-    { href: '/prescriptions', label: 'Prescriptions', icon: Pill },
-    { href: '/video-call', label: 'Video Calls', icon: Video },
-    { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
-    { href: '/documents', label: 'Documents', icon: FolderOpen },
-    { href: '/notifications', label: 'Notifications', icon: Bell },
     { href: '/activity', label: 'Activity Summary', icon: Activity },
+    { href: '/patients', label: 'Patients', icon: Users },
     { href: '/practice-metrics', label: 'Practice Metrics', icon: BarChart3 },
     { href: '/invite-patients', label: 'Invite Patients', icon: UserPlus },
     { href: '/profile', label: 'My Profile', icon: User },
@@ -67,26 +80,40 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
 
   const patientNavItems: NavigationItem[] = [
     { href: '/dashboard', label: 'Dashboard', icon: Home },
-    { href: '/schedule', label: 'Appointments', icon: Calendar },
     { href: '/prescription-request', label: 'Prescription Request', icon: Pill },
     { href: '/lab-test-request', label: 'Lab Tests Request', icon: FlaskConical },
-    { href: '/prescriptions', label: 'My Prescriptions', icon: Pill },
-    { href: '/video-call', label: 'Video Calls', icon: Video },
-    { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
-    { href: '/documents', label: 'My Documents', icon: FolderOpen },
-    { href: '/notifications', label: 'Notifications', icon: Bell },
     { href: '/message-provider', label: 'Message Provider', icon: MessageSquare },
     { href: '/my-visits', label: 'My Visits', icon: Calendar },
     { href: '/my-information', label: 'My Information', icon: User },
   ];
 
+  // New features for dropdown (added in recent enhancement)
+  const providerMoreItems: NavigationItem[] = [
+    { href: '/schedule', label: 'Schedule', icon: Calendar },
+    { href: '/prescriptions', label: 'Prescriptions', icon: Pill },
+    { href: '/video-call', label: 'Video Calls', icon: Video },
+    { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
+    { href: '/documents', label: 'Documents', icon: FolderOpen },
+    { href: '/notifications', label: 'Notifications', icon: Bell },
+  ];
+
+  const patientMoreItems: NavigationItem[] = [
+    { href: '/schedule', label: 'Appointments', icon: Calendar },
+    { href: '/prescriptions', label: 'My Prescriptions', icon: Pill },
+    { href: '/video-call', label: 'Video Calls', icon: Video },
+    { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
+    { href: '/documents', label: 'My Documents', icon: FolderOpen },
+    { href: '/notifications', label: 'Notifications', icon: Bell },
+  ];
+
   const navItems = currentUser.role === 'provider' ? providerNavItems : patientNavItems;
+  const moreItems = currentUser.role === 'provider' ? providerMoreItems : patientMoreItems;
 
   return (
-    <nav className="bg-white shadow-sm border-b border-emerald-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white shadow-sm border-b border-emerald-100 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+          <div className="flex items-center flex-1 min-w-0">
             <div className="flex-shrink-0 flex items-center">
               <Image 
                 src="/xpress-health-logo.svg" 
@@ -96,7 +123,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
                 className="h-8 w-auto"
               />
             </div>
-            <div className="hidden lg:ml-6 lg:flex lg:space-x-2">
+            <div className="hidden lg:ml-6 lg:flex lg:space-x-1 items-center flex-1 min-w-0">
               {navItems.filter(item => item.href !== '/profile').map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -105,7 +132,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      'inline-flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap relative',
+                      'inline-flex items-center px-1.5 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap relative',
                       isActive
                         ? 'text-emerald-700 bg-emerald-50'
                         : 'text-gray-500 hover:text-emerald-600 hover:bg-emerald-50',
@@ -124,10 +151,62 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
                   </Link>
                 );
               })}
+              
+              {/* More Features Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setMoreDropdownOpen(!moreDropdownOpen);
+                  }}
+                  className={cn(
+                    'inline-flex items-center px-1.5 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap',
+                    moreItems.some(item => pathname === item.href)
+                      ? 'text-emerald-700 bg-emerald-50'
+                      : 'text-gray-500 hover:text-emerald-600 hover:bg-emerald-50'
+                  )}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  More Features
+                  <ChevronDown className={cn("h-4 w-4 ml-1 transition-transform", moreDropdownOpen ? "rotate-180" : "")} />
+                </button>
+                
+                {moreDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-md shadow-xl border border-gray-200 z-[9999] ring-1 ring-black ring-opacity-5">
+                    <div className="py-1">
+                      <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-100">
+                        Advanced Features
+                      </div>
+                      {moreItems.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = pathname === item.href;
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMoreDropdownOpen(false)}
+                            className={cn(
+                              'flex items-center px-3 py-2 text-sm transition-colors',
+                              isActive
+                                ? 'text-emerald-700 bg-emerald-50'
+                                : 'text-gray-700 hover:text-emerald-600 hover:bg-emerald-50'
+                            )}
+                          >
+                            <Icon className="h-4 w-4 mr-3" />
+                            {item.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 flex-shrink-0">
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -138,20 +217,16 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
             
             <Link 
               href="/profile"
-              className="hidden lg:flex items-center space-x-3 hover:bg-emerald-50 rounded-md px-2 py-1 transition-colors"
+              className="hidden lg:flex items-center space-x-2 hover:bg-emerald-50 rounded-md px-2 py-1 transition-colors ml-2"
             >
               <div className="h-8 w-8 bg-emerald-100 rounded-full flex items-center justify-center">
                 <User className="h-4 w-4 text-emerald-600" />
-              </div>
-              <div className="hidden xl:block min-w-0">
-                <div className="text-sm font-medium text-gray-900 truncate">{currentUser.name}</div>
-                <div className="text-xs text-gray-500 capitalize">{currentUser.role}</div>
               </div>
             </Link>
             
             <button
               onClick={onLogout}
-              className="hidden lg:inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
+              className="hidden lg:inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden xl:inline ml-2">Logout</span>
@@ -184,6 +259,33 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
                 </Link>
               );
             })}
+            
+            {/* Advanced Features Section in Mobile */}
+            <div className="border-t border-emerald-200 pt-3 mt-3">
+              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                Advanced Features
+              </div>
+              {moreItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      'flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors',
+                      isActive
+                        ? 'text-emerald-700 bg-emerald-100'
+                        : 'text-gray-500 hover:text-emerald-600 hover:bg-emerald-100'
+                    )}
+                  >
+                    <Icon className="h-4 w-4 mr-3" />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
             
             {/* Legal Links */}
             <div className="border-t border-emerald-200 pt-3 mt-3">
