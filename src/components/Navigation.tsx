@@ -16,7 +16,13 @@ import {
   Activity,
   BarChart3,
   UserPlus,
-  Calendar
+  Calendar,
+  Home,
+  Shield,
+  FileText,
+  Video,
+  FolderOpen,
+  Stethoscope
 } from 'lucide-react';
 import Image from 'next/image';
 import { mockAuth } from '@/lib/mock-data';
@@ -44,17 +50,31 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
   const pendingRequestsCount = 0; // This would come from actual state management
 
   const providerNavItems: NavigationItem[] = [
+    { href: '/dashboard', label: 'Dashboard', icon: Home },
+    { href: '/schedule', label: 'Schedule', icon: Calendar },
     { href: '/requests', label: 'New Requests', icon: Bell, badge: pendingRequestsCount },
-    { href: '/activity', label: 'Activity Summary', icon: Activity },
     { href: '/patients', label: 'Patients', icon: Users },
+    { href: '/prescriptions', label: 'Prescriptions', icon: Pill },
+    { href: '/video-call', label: 'Video Calls', icon: Video },
+    { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
+    { href: '/documents', label: 'Documents', icon: FolderOpen },
+    { href: '/notifications', label: 'Notifications', icon: Bell },
+    { href: '/activity', label: 'Activity Summary', icon: Activity },
     { href: '/practice-metrics', label: 'Practice Metrics', icon: BarChart3 },
     { href: '/invite-patients', label: 'Invite Patients', icon: UserPlus },
     { href: '/profile', label: 'My Profile', icon: User },
   ];
 
   const patientNavItems: NavigationItem[] = [
+    { href: '/dashboard', label: 'Dashboard', icon: Home },
+    { href: '/schedule', label: 'Appointments', icon: Calendar },
     { href: '/prescription-request', label: 'Prescription Request', icon: Pill },
     { href: '/lab-test-request', label: 'Lab Tests Request', icon: FlaskConical },
+    { href: '/prescriptions', label: 'My Prescriptions', icon: Pill },
+    { href: '/video-call', label: 'Video Calls', icon: Video },
+    { href: '/medical-history', label: 'Medical History', icon: Stethoscope },
+    { href: '/documents', label: 'My Documents', icon: FolderOpen },
+    { href: '/notifications', label: 'Notifications', icon: Bell },
     { href: '/message-provider', label: 'Message Provider', icon: MessageSquare },
     { href: '/my-visits', label: 'My Visits', icon: Calendar },
     { href: '/my-information', label: 'My Information', icon: User },
@@ -77,7 +97,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
               />
             </div>
             <div className="hidden lg:ml-6 lg:flex lg:space-x-2">
-              {navItems.map((item) => {
+              {navItems.filter(item => item.href !== '/profile').map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 return (
@@ -107,7 +127,7 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-3">
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -116,22 +136,25 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
             
-            <div className="hidden lg:flex items-center space-x-2">
+            <Link 
+              href="/profile"
+              className="hidden lg:flex items-center space-x-3 hover:bg-emerald-50 rounded-md px-2 py-1 transition-colors"
+            >
               <div className="h-8 w-8 bg-emerald-100 rounded-full flex items-center justify-center">
                 <User className="h-4 w-4 text-emerald-600" />
               </div>
-              <div className="hidden xl:block">
-                <div className="text-sm font-medium text-gray-900">{currentUser.name}</div>
+              <div className="hidden xl:block min-w-0">
+                <div className="text-sm font-medium text-gray-900 truncate">{currentUser.name}</div>
                 <div className="text-xs text-gray-500 capitalize">{currentUser.role}</div>
               </div>
-            </div>
+            </Link>
             
             <button
               onClick={onLogout}
-              className="hidden lg:inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
+              className="hidden lg:inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
             >
               <LogOut className="h-4 w-4" />
-              <span className="hidden xl:inline ml-1">Logout</span>
+              <span className="hidden xl:inline ml-2">Logout</span>
             </button>
           </div>
         </div>
@@ -161,6 +184,26 @@ const Navigation: React.FC<NavigationProps> = ({ onLogout }) => {
                 </Link>
               );
             })}
+            
+            {/* Legal Links */}
+            <div className="border-t border-emerald-200 pt-3 mt-3">
+              <Link
+                href="/privacy"
+                className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-emerald-100 rounded-md transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Shield className="h-4 w-4 mr-3" />
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-emerald-600 hover:bg-emerald-100 rounded-md transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <FileText className="h-4 w-4 mr-3" />
+                Terms of Service
+              </Link>
+            </div>
             
             {/* Mobile user info and logout */}
             <div className="border-t border-emerald-200 pt-3 mt-3">
