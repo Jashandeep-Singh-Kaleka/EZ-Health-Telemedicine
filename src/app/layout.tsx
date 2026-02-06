@@ -37,6 +37,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     title: "XPress Health — Telemedicine Made Simple",
     description:

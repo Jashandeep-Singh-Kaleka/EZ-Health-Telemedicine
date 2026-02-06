@@ -4,8 +4,9 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service — XPress Health',
+  title: 'Terms of Service',
   description: 'Read the terms and conditions governing your use of XPress Health telemedicine services.',
+  alternates: { canonical: '/terms' },
 };
 
 export default function TermsOfService() {
