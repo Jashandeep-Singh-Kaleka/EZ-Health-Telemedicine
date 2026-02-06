@@ -1,6 +1,6 @@
 {
-  "name": "xpress-health-app",
-  "version": "0.1.0",
+  "name": "xpress-health-landing",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -9,17 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.4",
-    "@hookform/resolvers": "^5.1.1",
-    "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
-    "lucide-react": "^0.518.0",
     "next": "15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hook-form": "^7.58.1",
-    "tailwind-merge": "^3.3.1",
-    "zod": "^3.25.67"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
