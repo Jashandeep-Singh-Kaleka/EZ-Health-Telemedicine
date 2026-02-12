@@ -366,10 +366,10 @@ export default function Home() {
                 <li>
                   <Link href="/terms" className="hover:text-white transition-colors flex items-center gap-1.5">
                     <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    Terms of Service
+                    Terms of Use
                   </Link>
                 </li>
-                <li><a href="mailto:support@xpresshealth.care" className="hover:text-white transition-colors">Help &amp; Support</a></li>
+                <li><a href="mailto:admin@xpresshealth.care" className="hover:text-white transition-colors">Help &amp; Support</a></li>
               </ul>
             </div>
 
@@ -380,8 +380,21 @@ export default function Home() {
                 <div className="flex items-start gap-2">
                   <svg className="h-4 w-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                   <div>
-                    <a href="mailto:support@xpresshealth.care" className="hover:text-white transition-colors">support@xpresshealth.care</a>
+                    <a href="mailto:admin@xpresshealth.care" className="hover:text-white transition-colors">admin@xpresshealth.care</a>
                     <p className="text-xs text-gray-500 mt-0.5">General inquiries</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <svg className="h-4 w-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+                  <div>
+                    <a href="tel:+17622132273" className="hover:text-white transition-colors">(762) 213-2273</a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <svg className="h-4 w-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                  <div>
+                    <p>3721 New Macland Road</p>
+                    <p>Powder Springs, GA 30127</p>
                   </div>
                 </div>
               </div>
@@ -391,7 +404,7 @@ export default function Home() {
           {/* Bottom bar */}
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-gray-500">
-              <p>&copy; {new Date().getFullYear()} XPress Health. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Xpress Health, LLC. All rights reserved.</p>
             </div>
             <div className="flex items-center gap-6 text-sm text-gray-500">
               <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
@@ -407,7 +420,7 @@ export default function Home() {
           <div className="mt-8 pt-6 border-t border-gray-800">
             <div className="text-xs text-gray-600 leading-relaxed space-y-2">
               <p>
-                <strong className="text-gray-500">Medical Disclaimer:</strong> XPress Health is a technology platform that connects patients with independent, licensed healthcare providers. We do not practice medicine or provide medical advice. All medical care, advice, diagnoses, and treatment decisions are made solely by licensed healthcare providers.
+                <strong className="text-gray-500">Medical Disclaimer:</strong> Xpress Health is not a healthcare provider. Our platform facilitates communication between patients and authorized, independent medical providers. All diagnoses, treatment recommendations, and medical advice are made solely by licensed healthcare providers. Xpress Health does not control, review, or interfere with any clinical decisions.
               </p>
               <p>
                 <strong className="text-gray-500">Emergency Notice:</strong> This platform is not intended for medical emergencies. For urgent medical situations, call 911 or visit your nearest emergency room immediately.
